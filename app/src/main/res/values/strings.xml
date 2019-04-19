@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name" translatable="false">Sawadikap-Java</string>
+
+    <!-- Onboarding Strings -->
+    <string name="onboarding_h1">Siapa Sawadikap?</string>
+    <string name="onboarding_p1">Sawadikap adalah platform sedekah pakaian pertama di Indonesia yang
+        dapat memudahkan pengguna untuk berbagi dengan siapapun, dimanapun dan kapanpun.</string>
+    <string name="onboarding_h2">Mengapa Sawadikap?</string>
+    <string name="onboarding_p2">Kami percaya berbagi dengan sesama adalah kegiatan positif yang
+        seharusnya setiap orang mudah untuk bersedekah.</string>
+    <string name="onboarding_h3">Pelajari Sawadikap</string>
+    <string name="onboarding_p3">Jadi bagian dari kami, unggah pakaianmu, pilih berbagi kemudian
+        tunggu kurir menjemput pakaian mu dan sedekahmu selesai. </string>
+    <string name="onboarding_h4">Mulai</string>
+    <string name="onboarding_p4">Yuk mulai bersedekah!!</string>
+</resources>
