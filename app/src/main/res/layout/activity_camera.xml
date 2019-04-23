@@ -37,18 +37,37 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp" />
 
-        <Button
-            android:id="@+id/takePicture"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="takePicture"
-            android:text="Take pic" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/fromGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="takeGallery"
+                android:text="Gallery" />
+
+            <Button
+                android:id="@+id/takePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="takePicture"
+                android:text="Take pic" />
+
+        </LinearLayout>
 
         <Button
+            android:id="@+id/buttonLanjut"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="uploadPic"
-            android:text="Upload" />
+            android:onClick="nextPage"
+            android:text="Lanjut"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 

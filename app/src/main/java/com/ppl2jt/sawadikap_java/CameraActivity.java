@@ -3,13 +3,18 @@ package com.ppl2jt.sawadikap_java;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,10 +34,13 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.ppl2jt.sawadikap_java.job.UploadImage;
 
+import java.io.IOException;
+
 public class CameraActivity extends AppCompatActivity {
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
+    private static final int GALLERY_REQUEST_CODE = 1002;
 
     ImageView cameraImage;
     Button takePicture;
@@ -52,6 +60,20 @@ public class CameraActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         storageRef = FirebaseStorage.getInstance().getReference("user-image");
         databaseRef = FirebaseDatabase.getInstance().getReference("user-image");
+    }
+
+    public static int getScreenWidth(Context context) {
+        WindowManager windowManager = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
+    }
+
+    public void takeGallery(View view) {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, GALLERY_REQUEST_CODE);
     }
 
     public void takePicture(View view) {
@@ -91,7 +113,7 @@ public class CameraActivity extends AppCompatActivity {
                     PackageManager.PERMISSION_GRANTED) {
                 openCamera();
             } else {
-                Toast.makeText(this, "Permissions Denied", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Aplikasi tidak memiliki izin", Toast.LENGTH_SHORT)
                         .show();
             }
         }
@@ -100,10 +122,24 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            cameraImage.setImageURI(imageUri);
+            switch (requestCode) {
+                case GALLERY_REQUEST_CODE:
+                    Uri selectedImage = data.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                        cameraImage.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        Log.i("TAG", "Some exception " + e);
+                    }
+                    break;
+                case IMAGE_CAPTURE_CODE:
+                    cameraImage.setImageURI(imageUri);
+                    break;
+            }
         }
     }
 
+    //! Delete This Later
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
@@ -111,52 +147,6 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     public void uploadPic(View view) {
-//        if (imageUri != null) {
-//            final StorageReference fileRef = storageRef.child(System.currentTimeMillis() + "." +
-//                    getFileExtension(imageUri));
-//
-//            fileRef.putFile(imageUri)
-//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            Handler handler = new Handler();
-//                            handler.postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    progressBar.setProgress(0);
-//                                }
-//                            }, 500);
-//
-//                            Toast.makeText(CameraActivity.this, "berhasil diunggah",
-//                                    Toast.LENGTH_SHORT).show();
-//
-//                            String uploadId = databaseRef.push().getKey();
-//
-//                            UploadImage uploadImage = new UploadImage("Image",
-//                                    storageRef.child("user-image/" + uploadId).getDownloadUrl()
-//                                            .toString());
-//
-//                            databaseRef.child(uploadId).setValue(uploadImage);
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(CameraActivity.this, e.getMessage(),
-//                                    Toast.LENGTH_SHORT).show();
-//                        }
-//                    })
-//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-//                            double progress = (100.0 * taskSnapshot.getBytesTransferred() /
-//                                    taskSnapshot.getTotalByteCount());
-//                            progressBar.setProgress((int) progress);
-//                        }
-//                    });
-//        } else {
-//            Toast.makeText(this, "Gambar belum diambil", Toast.LENGTH_SHORT).show();
-//        }
 
         progressBar.setIndeterminate(true);
 
@@ -184,7 +174,7 @@ public class CameraActivity extends AppCompatActivity {
                         Toast.makeText(CameraActivity.this, "Gambar berhasil diunggah",
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(CameraActivity.this, "upload failed: " +
+                        Toast.makeText(CameraActivity.this, "gagal mengunggah: " +
                                 task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     progressBar.setIndeterminate(false);
@@ -194,5 +184,10 @@ public class CameraActivity extends AppCompatActivity {
             Toast.makeText(this, "Gambar belum diambil", Toast.LENGTH_SHORT).show();
             progressBar.setIndeterminate(false);
         }
+    }
+
+    public void nextPage(View view) {
+        Intent intent = new Intent(CameraActivity.this, CategoryActivity.class);
+        startActivity(intent);
     }
 }

@@ -3,4 +3,9 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#01BFA5</color>
+    <color name="babyPink">#E91E63</color>
+    <color name="childRed">#F44336</color>
+    <color name="teenPurple">#9C27B0</color>
+    <color name="adultBlue">#3F51B5</color>
+    <color name="unselected">#888888</color>
 </resources>

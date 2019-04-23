@@ -16,6 +16,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".CategoryActivity"
+            android:theme="@style/NoActionTheme" />
+        <activity
             android:name=".CameraActivity"
             android:theme="@style/NoActionTheme" />
         <activity
