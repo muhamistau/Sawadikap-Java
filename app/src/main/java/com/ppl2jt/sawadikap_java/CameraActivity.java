@@ -124,9 +124,10 @@ public class CameraActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    Uri selectedImage = data.getData();
+                    imageUri = data.getData();
                     try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),
+                                imageUri);
                         cameraImage.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         Log.i("TAG", "Some exception " + e);
@@ -188,6 +189,7 @@ public class CameraActivity extends AppCompatActivity {
 
     public void nextPage(View view) {
         Intent intent = new Intent(CameraActivity.this, CategoryActivity.class);
+        intent.putExtra("image", imageUri.toString());
         startActivity(intent);
     }
 }

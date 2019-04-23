@@ -16,6 +16,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ConfirmationActivity"
+            android:theme="@style/NoActionTheme" />
+        <activity
             android:name=".CategoryActivity"
             android:theme="@style/NoActionTheme" />
         <activity

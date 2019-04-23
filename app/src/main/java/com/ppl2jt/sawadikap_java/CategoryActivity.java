@@ -20,13 +20,15 @@ public class CategoryActivity extends AppCompatActivity {
     ImageView star1, star2, star3, star4, star5;
     TextView ageText, categoryText, genderText;
 
-    int age, category, gender, rating;
-    String size;
+    String age, category, gender, size, rating;
+    String imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        imageUri = getIntent().getStringExtra("image");
 
         baby = findViewById(R.id.age_baby);
         child = findViewById(R.id.age_child);
@@ -61,7 +63,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setAgeImageColor(R.color.babyPink, R.color.unselected, R.color.unselected,
                         R.color.unselected, "Bayi");
-                age = 0;
+                age = "Bayi";
             }
         });
         child.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +71,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setAgeImageColor(R.color.unselected, R.color.childRed, R.color.unselected,
                         R.color.unselected, "Balita");
-                age = 1;
+                age = "Balita";
             }
         });
         teen.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +79,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setAgeImageColor(R.color.unselected, R.color.unselected, R.color.teenPurple,
                         R.color.unselected, "Remaja");
-                age = 2;
+                age = "Remaja";
             }
         });
         adult.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +87,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setAgeImageColor(R.color.unselected, R.color.unselected, R.color.unselected,
                         R.color.adultBlue, "Dewasa");
-                age = 3;
+                age = "Dewasa";
             }
         });
 
@@ -95,7 +97,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setCategoryImageColor(R.color.colorAccent, R.color.unselected, R.color.unselected,
                         R.color.unselected, "Kaos");
-                category = 1;
+                category = "kaos";
             }
         });
         shirt.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +105,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setCategoryImageColor(R.color.unselected, R.color.colorAccent, R.color.unselected,
                         R.color.unselected, "Kemeja");
-                category = 2;
+                category = "kemeja";
             }
         });
         dress.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +113,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setCategoryImageColor(R.color.unselected, R.color.unselected, R.color.colorAccent,
                         R.color.unselected, "Gaun");
-                category = 3;
+                category = "gaun";
             }
         });
         jacket.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +121,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setCategoryImageColor(R.color.unselected, R.color.unselected, R.color.unselected,
                         R.color.colorAccent, "Jaket");
-                category = 4;
+                category = "jaket";
             }
         });
 
@@ -128,14 +130,14 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setGenderImageColor(R.color.adultBlue, R.color.unselected, "Laki-laki");
-                gender = 0;
+                gender = "laki-laki";
             }
         });
         female.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setGenderImageColor(R.color.unselected, R.color.babyPink, "Perempuan");
-                gender = 1;
+                gender = "perempuan";
             }
         });
 
@@ -182,7 +184,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.unselected, R.color.unselected, R.color.unselected,
                         R.color.unselected);
-                rating = 1;
+                rating = "tidak layak";
             }
         });
         star2.setOnClickListener(new View.OnClickListener() {
@@ -193,7 +195,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.unselected, R.color.unselected,
                         R.color.unselected);
-                rating = 2;
+                rating = "agak rusak";
             }
         });
         star3.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +206,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.colorAccent, R.color.unselected,
                         R.color.unselected);
-                rating = 3;
+                rating = "layak pakai";
             }
         });
         star4.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +217,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.colorAccent, R.color.colorAccent,
                         R.color.unselected);
-                rating = 4;
+                rating = "masih bagus";
             }
         });
         star5.setOnClickListener(new View.OnClickListener() {
@@ -226,7 +228,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.colorAccent, R.color.colorAccent,
                         R.color.colorAccent);
-                rating = 5;
+                rating = "seperti baru";
             }
         });
     }
@@ -309,12 +311,13 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     public void confirmationPageIntent(View view) {
-        Intent intent = new Intent();
+        Intent intent = new Intent(CategoryActivity.this, ConfirmationActivity.class);
         intent.putExtra("age", age);
         intent.putExtra("category", category);
         intent.putExtra("gender", gender);
         intent.putExtra("size", size);
         intent.putExtra("rating", rating);
+        intent.putExtra("image", imageUri);
         startActivity(intent);
     }
 }
