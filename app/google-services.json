@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "566526995758",
+    "firebase_url": "https://sawadikap-image.firebaseio.com",
+    "project_id": "sawadikap-image",
+    "storage_bucket": "sawadikap-image.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566526995758:android:3dd1a7aa8e1ab006",
+        "android_client_info": {
+          "package_name": "com.ppl2jt.sawadikap_java"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566526995758-12d4pj50tu1gblt4gql3gvf23kjh0klt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ppl2jt.sawadikap_java",
+            "certificate_hash": "942facd18962a9fa8ca98fe6259f36032687d8db"
+          }
+        },
+        {
+          "client_id": "566526995758-gvvp5k1u403de6tbivsforbmfk220mct.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwQXiH51Fc09n8WHwPuPEitDL6OPlBnoo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566526995758-gvvp5k1u403de6tbivsforbmfk220mct.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
