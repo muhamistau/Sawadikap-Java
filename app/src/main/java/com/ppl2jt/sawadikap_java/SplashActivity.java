@@ -1,9 +1,9 @@
 package com.ppl2jt.sawadikap_java;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -17,8 +17,8 @@ public class SplashActivity extends AppCompatActivity {
         //* Check firstRun State from sharedPreferences
         //! Commented for development purpose
         // Todo: Uncomment before Demo
-//        firstRun = getSharedPreferences("PREFERENCE_STORY", MODE_PRIVATE)
-//                .getBoolean("firstRun", true);
+        firstRun = getSharedPreferences("PREFERENCE_STORY", MODE_PRIVATE)
+                .getBoolean("firstRun", true);
 
         if (firstRun){
             //* Intent to Onboarding Page

@@ -1,12 +1,12 @@
 package com.ppl2jt.sawadikap_java;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ppl2jt.sawadikap_java.job.OnboardingPagerAdapter;
 
@@ -28,13 +28,27 @@ public class OnboardingActivity extends AppCompatActivity {
     }
 
     public void next(View view) {
-        onboardingViewPager.setCurrentItem(
-                onboardingViewPager.getCurrentItem() + 1, true);
+        if (onboardingViewPager.getCurrentItem() == onboardingPagerAdapter.getCount() - 1) {
+            intentToAndSetFirstRun();
+        } else {
+            onboardingViewPager.setCurrentItem(
+                    onboardingViewPager.getCurrentItem() + 1, true);
+        }
     }
 
     public void skip(View view) {
+        intentToAndSetFirstRun();
+    }
+
+    public void intentToAndSetFirstRun() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+
+        //* Check firstRun State from sharedPreferences
+        //! Commented for development purpose
+        // Todo: Uncomment before Demo
+        getSharedPreferences("PREFERENCE_STORY", MODE_PRIVATE).edit()
+                .putBoolean("firstRun", false).apply();
     }
 }

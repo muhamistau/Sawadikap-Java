@@ -5,16 +5,22 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
     tools:context=".fragments.onboarding.On3Fragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/onboarding_h3" />
+        android:gravity="center"
+        android:text="@string/onboarding_h3"
+        android:textColor="@color/colorPrimary" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/onboarding_p3" />
+        android:gravity="center"
+        android:text="@string/onboarding_p3"
+        android:textColor="@color/colorPrimary" />
 
 </LinearLayout>

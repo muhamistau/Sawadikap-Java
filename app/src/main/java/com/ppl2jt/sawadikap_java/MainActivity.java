@@ -1,10 +1,9 @@
 package com.ppl2jt.sawadikap_java;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,10 +14,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = getIntent();
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        BottomAppBar bar = findViewById(R.id.bottomBar);
+//        setSupportActionBar(bar);
 
-        text = findViewById(R.id.textView);
-        text.setText("" + intent.getStringExtra("email") + "\n"
-                + intent.getStringExtra("password"));
+//        Intent intent = getIntent();
+
+//        text = findViewById(R.id.textView);
+//        text.setText("" + intent.getStringExtra("email") + "\n"
+//                + intent.getStringExtra("username") + intent.getStringExtra("picUrl"));
     }
 }
