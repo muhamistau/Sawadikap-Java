@@ -1,9 +1,7 @@
 package com.ppl2jt.sawadikap_java;
 
 import android.Manifest;
-import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,11 +9,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -24,21 +19,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.ppl2jt.sawadikap_java.job.UploadImage;
-
 import java.io.IOException;
 
 public class CameraActivity extends AppCompatActivity {
 
     private static final int PERMISSION_CODE = 1000;
+    private static final int CAMERA_REQUEST = 100;
     private static final int IMAGE_CAPTURE_CODE = 1001;
     private static final int GALLERY_REQUEST_CODE = 1002;
 
@@ -47,8 +33,7 @@ public class CameraActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     Uri imageUri;
-    private StorageReference storageRef;
-    private DatabaseReference databaseRef;
+    Uri downloadUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +43,6 @@ public class CameraActivity extends AppCompatActivity {
         cameraImage = findViewById(R.id.cameraImage);
         takePicture = findViewById(R.id.takePicture);
         progressBar = findViewById(R.id.progress_bar);
-        storageRef = FirebaseStorage.getInstance().getReference("user-image");
-        databaseRef = FirebaseDatabase.getInstance().getReference("user-image");
-    }
-
-    public static int getScreenWidth(Context context) {
-        WindowManager windowManager = (WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(dm);
-        return dm.widthPixels;
     }
 
     public void takeGallery(View view) {
@@ -78,21 +53,31 @@ public class CameraActivity extends AppCompatActivity {
 
     public void takePicture(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CAMERA) ==
-                    PackageManager.PERMISSION_DENIED ||
-                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_DENIED) {
-                String[] permission = {Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
-                requestPermissions(permission, PERMISSION_CODE);
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, IMAGE_CAPTURE_CODE);
             } else {
-                openCamera();
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
         } else {
             openCamera();
         }
     }
+
+//    private static File getOutputMediaFile(){
+//        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+//                Environment.DIRECTORY_PICTURES), "CameraDemo");
+//
+//        if (!mediaStorageDir.exists()){
+//            if (!mediaStorageDir.mkdirs()){
+//                return null;
+//            }
+//        }
+//
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        return new File(mediaStorageDir.getPath() + File.separator +
+//                "IMG_"+ timeStamp + ".jpg");
+//    }
 
     private void openCamera() {
         ContentValues values = new ContentValues();
@@ -104,17 +89,32 @@ public class CameraActivity extends AppCompatActivity {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
+
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        Uri file = Uri.fromFile(getOutputMediaFile());
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
+//
+//        startActivityForResult(intent, IMAGE_CAPTURE_CODE);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED) {
-                openCamera();
+//        if (requestCode == PERMISSION_CODE) {
+//            if (grantResults.length > 0 && grantResults[0] ==
+//                    PackageManager.PERMISSION_GRANTED) {
+//                openCamera();
+//            } else {
+//                Toast.makeText(this, "Aplikasi tidak memiliki izin", Toast.LENGTH_SHORT)
+//                        .show();
+//            }
+//        }
+        if (requestCode == IMAGE_CAPTURE_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
             } else {
-                Toast.makeText(this, "Aplikasi tidak memiliki izin", Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -122,6 +122,19 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
+//            Log.d("REQUEST_CODE", Integer.toString(requestCode));
+//            if (requestCode == GALLERY_REQUEST_CODE) {
+//                imageUri = data.getData();
+//                try {
+//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),
+//                            imageUri);
+//                    cameraImage.setImageBitmap(bitmap);
+//                } catch (IOException e) {
+//                    Log.i("TAG", "Some exception " + e);
+//                }
+//            } else {
+//                cameraImage.setImageURI(imageUri);
+//            }
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
                     imageUri = data.getData();
@@ -133,63 +146,25 @@ public class CameraActivity extends AppCompatActivity {
                         Log.i("TAG", "Some exception " + e);
                     }
                     break;
-                case IMAGE_CAPTURE_CODE:
-                    cameraImage.setImageURI(imageUri);
+                case CAMERA_REQUEST:
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    cameraImage.setImageBitmap(photo);
                     break;
             }
         }
     }
 
     //! Delete This Later
-    private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
-
-    public void uploadPic(View view) {
-
-        progressBar.setIndeterminate(true);
-
-        if (imageUri != null) {
-            storageRef.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot,
-                    Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-                    return storageRef.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        Uri downloadUri = task.getResult();
-
-                        UploadImage upload = new UploadImage("Image",
-                                downloadUri.toString());
-
-                        databaseRef.push().setValue(upload);
-
-                        Toast.makeText(CameraActivity.this, "Gambar berhasil diunggah",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(CameraActivity.this, "gagal mengunggah: " +
-                                task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    progressBar.setIndeterminate(false);
-                }
-            });
-        } else {
-            Toast.makeText(this, "Gambar belum diambil", Toast.LENGTH_SHORT).show();
-            progressBar.setIndeterminate(false);
-        }
-    }
+//    private String getFileExtension(Uri uri) {
+//        ContentResolver contentResolver = getContentResolver();
+//        MimeTypeMap mime = MimeTypeMap.getSingleton();
+//        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
+//    }
 
     public void nextPage(View view) {
         Intent intent = new Intent(CameraActivity.this, CategoryActivity.class);
         intent.putExtra("image", imageUri.toString());
+        intent.putExtra("imageUrl", downloadUri);
         startActivity(intent);
     }
 }

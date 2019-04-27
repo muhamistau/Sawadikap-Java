@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Sawadikap-Java</string>
+    <string name="app_name" translatable="false">Sawadikap</string>
 
     <!-- Onboarding Strings -->
     <string name="onboarding_h1">Siapa Sawadikap?</string>
