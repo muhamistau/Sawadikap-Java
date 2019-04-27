@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/beranda"
+        android:id="@+id/home"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Beranda" />
 
     <item
-        android:id="@+id/lemari"
+        android:id="@+id/wardrobe"
         android:icon="@drawable/ic_wardrobe_black_24dp"
         android:title="Lemari" />
 
     <item
-        android:id="@+id/riwayat"
+        android:id="@+id/history"
         android:icon="@drawable/ic_history_black_24dp"
         android:title="Riwayat" />
 

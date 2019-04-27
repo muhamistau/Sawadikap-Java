@@ -44,6 +44,7 @@
             android:theme="@style/NoActionTheme" />
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTop"
             android:theme="@style/NoActionTheme" />
     </application>
 

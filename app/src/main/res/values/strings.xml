@@ -13,4 +13,7 @@
         tunggu kurir menjemput pakaian mu dan sedekahmu selesai. </string>
     <string name="onboarding_h4">Mulai</string>
     <string name="onboarding_p4">Yuk mulai bersedekah!!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
