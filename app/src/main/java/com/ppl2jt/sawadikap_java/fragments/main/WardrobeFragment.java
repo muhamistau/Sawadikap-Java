@@ -35,9 +35,9 @@ import okhttp3.Response;
 public class WardrobeFragment extends Fragment {
 
     private static ProgressDialog mProgressDialog;
-    ListView listView;
-    ArrayList<Clothes> clothesArrayList;
-    ClothesAdapter clothesAdapter;
+    private ListView listView;
+    private ArrayList<Clothes> clothesArrayList;
+    private ClothesAdapter clothesAdapter;
 
     public WardrobeFragment() {
         // Required empty public constructor
