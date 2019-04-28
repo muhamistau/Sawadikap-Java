@@ -12,6 +12,19 @@ public class Clothes {
     private String picUrl;
     private String status;
 
+    public Clothes(int id, int idUser, int idRequest, String size, String gender, String age,
+                   String category, String picUrl, String status) {
+        this.id = id;
+        this.idUser = idUser;
+        this.idRequest = idRequest;
+        this.size = size;
+        this.gender = gender;
+        this.age = age;
+        this.category = category;
+        this.picUrl = picUrl;
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }
