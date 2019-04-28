@@ -12,7 +12,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent;
-        Boolean firstRun = true;
+        boolean firstRun = true;
+        boolean isLoggedIn = false;
 
         //* Check firstRun State from sharedPreferences
         //! Commented for development purpose
@@ -20,9 +21,14 @@ public class SplashActivity extends AppCompatActivity {
         firstRun = getSharedPreferences("PREFERENCE_STORY", MODE_PRIVATE)
                 .getBoolean("firstRun", true);
 
-        if (firstRun){
+        isLoggedIn = getSharedPreferences("PREFERENCE_STORY", MODE_PRIVATE)
+                .getBoolean("isLoggedIn", false);
+
+        if (firstRun && !isLoggedIn) {
             //* Intent to Onboarding Page
             intent = new Intent(this, OnboardingActivity.class);
+        } else if (!firstRun && isLoggedIn) {
+            intent = new Intent(this, MainActivity.class);
         } else {
             //* Intent to Login Page
             intent = new Intent(this, LoginActivity.class);
