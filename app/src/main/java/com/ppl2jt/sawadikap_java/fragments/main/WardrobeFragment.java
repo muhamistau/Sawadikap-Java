@@ -8,10 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ppl2jt.sawadikap_java.R;
 import com.ppl2jt.sawadikap_java.job.ClothesAdapter;
@@ -34,9 +36,10 @@ import okhttp3.Response;
  */
 public class WardrobeFragment extends Fragment {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private static ProgressDialog mProgressDialog;
     private ListView listView;
-    private ArrayList<Clothes> clothesArrayList;
+    //    private ArrayList<Clothes> clothesArrayList;
     private ClothesAdapter clothesAdapter;
 
     public WardrobeFragment() {
@@ -88,8 +91,24 @@ public class WardrobeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wardrobe, container, false);
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeLayout);
         listView = view.findViewById(R.id.listView);
-        clothesArrayList = new ArrayList<>();
+//        clothesArrayList = new ArrayList<>();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "Item clicked " + position,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchJSON();
+            }
+        });
 
         fetchJSON();
 
@@ -98,8 +117,10 @@ public class WardrobeFragment extends Fragment {
 
     private void fetchJSON() {
 
-        showSimpleProgressDialog(getActivity(), "Loading...", "Fetching Json",
-                false);
+//        showSimpleProgressDialog(getActivity(), "Loading...", "Fetching Json",
+//                false);
+
+        swipeRefreshLayout.setRefreshing(true);
 
         OkHttpClient client = new OkHttpClient();
         String url = "http://sawadikap-endpoint.herokuapp.com/api/pakaian/";
@@ -123,6 +144,8 @@ public class WardrobeFragment extends Fragment {
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+//                removeSimpleProgressDialog();
             }
 
             @Override
@@ -138,8 +161,10 @@ public class WardrobeFragment extends Fragment {
                     });
 
                     String stringResponse = response.body().string();
+                    final ArrayList<Clothes> clothesArrayList = new ArrayList<>();
 
                     try {
+
 
                         Log.d("JSONSTRING", stringResponse);
                         JSONArray dataArray = new JSONArray(stringResponse);
@@ -151,8 +176,10 @@ public class WardrobeFragment extends Fragment {
 
                             dataObject = dataArray.getJSONObject(i);
                             Log.d("Object" + i, dataObject.getString("jenis_baju"));
+
                             clothesArrayList.add(
                                     new Clothes(
+
                                             dataObject.getInt("id_pakaian"),
                                             dataObject.getInt("id_user"),
                                             dataObject.getInt("id_request"),
@@ -169,15 +196,27 @@ public class WardrobeFragment extends Fragment {
 
                         }
 
-                        clothesAdapter = new ClothesAdapter(getActivity(), clothesArrayList);
-                        listView.setAdapter(clothesAdapter);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                clothesAdapter = new ClothesAdapter(getActivity(), clothesArrayList);
+                                listView.setAdapter(clothesAdapter);
+                            }
+                        });
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                    removeSimpleProgressDialog();
+//                    removeSimpleProgressDialog();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchJSON();
     }
 }

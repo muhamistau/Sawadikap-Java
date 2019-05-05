@@ -98,7 +98,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setCategoryImageColor(R.color.colorAccent, R.color.unselected, R.color.unselected,
                         R.color.unselected, "Kaos");
-                category = "kaos";
+                category = "Kaos";
             }
         });
         shirt.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setCategoryImageColor(R.color.unselected, R.color.colorAccent, R.color.unselected,
                         R.color.unselected, "Kemeja");
-                category = "kemeja";
+                category = "Kemeja";
             }
         });
         dress.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +114,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setCategoryImageColor(R.color.unselected, R.color.unselected, R.color.colorAccent,
                         R.color.unselected, "Gaun");
-                category = "gaun";
+                category = "Gaun";
             }
         });
         jacket.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setCategoryImageColor(R.color.unselected, R.color.unselected, R.color.unselected,
                         R.color.colorAccent, "Jaket");
-                category = "jaket";
+                category = "Jaket";
             }
         });
 
@@ -131,14 +131,14 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setGenderImageColor(R.color.adultBlue, R.color.unselected, "Laki-laki");
-                gender = "laki-laki";
+                gender = "Laki-laki";
             }
         });
         female.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setGenderImageColor(R.color.unselected, R.color.babyPink, "Perempuan");
-                gender = "perempuan";
+                gender = "Perempuan";
             }
         });
 
@@ -148,7 +148,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setTextViewColor(R.color.colorAccent, R.color.unselected, R.color.unselected,
                         R.color.unselected);
-                size = "s";
+                size = "S";
             }
         });
         m.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +156,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setTextViewColor(R.color.unselected, R.color.colorAccent, R.color.unselected,
                         R.color.unselected);
-                size = "m";
+                size = "M";
             }
         });
         l.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +164,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setTextViewColor(R.color.unselected, R.color.unselected, R.color.colorAccent,
                         R.color.unselected);
-                size = "l";
+                size = "L";
             }
         });
         xl.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +172,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setTextViewColor(R.color.unselected, R.color.unselected, R.color.unselected,
                         R.color.colorAccent);
-                size = "xl";
+                size = "XL";
             }
         });
 
@@ -185,7 +185,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.unselected, R.color.unselected, R.color.unselected,
                         R.color.unselected);
-                rating = "tidak layak";
+                rating = "Tidak Layak";
             }
         });
         star2.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +196,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.unselected, R.color.unselected,
                         R.color.unselected);
-                rating = "agak rusak";
+                rating = "Agak Rusak";
             }
         });
         star3.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +207,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.colorAccent, R.color.unselected,
                         R.color.unselected);
-                rating = "layak pakai";
+                rating = "Layak Pakai";
             }
         });
         star4.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +218,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.colorAccent, R.color.colorAccent,
                         R.color.unselected);
-                rating = "masih bagus";
+                rating = "Masih Bagus";
             }
         });
         star5.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +229,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.colorAccent, R.color.colorAccent,
                         R.color.colorAccent);
-                rating = "seperti baru";
+                rating = "Seperti Baru";
             }
         });
     }

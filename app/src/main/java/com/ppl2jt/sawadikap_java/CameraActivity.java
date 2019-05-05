@@ -2,9 +2,11 @@ package com.ppl2jt.sawadikap_java;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +21,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -148,10 +153,44 @@ public class CameraActivity extends AppCompatActivity {
                     break;
                 case CAMERA_REQUEST:
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+                    imageUri = getImageUri(this, photo);
+
+                    InputStream imageStream = null;
+                    try {
+                        imageStream = getContentResolver().openInputStream(
+                                imageUri);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    Bitmap bmp = BitmapFactory.decodeStream(imageStream);
+
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+                    cameraImage.setImageBitmap(bmp);
+
+                    byte[] byteArray = stream.toByteArray();
+
+                    try {
+                        stream.close();
+                        stream = null;
+                    } catch (IOException e) {
+
+                        e.printStackTrace();
+                    }
+
                     cameraImage.setImageBitmap(photo);
                     break;
             }
         }
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     //! Delete This Later

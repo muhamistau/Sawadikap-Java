@@ -110,8 +110,8 @@ public class ConfirmationActivity extends AppCompatActivity {
 
                         databaseRef.push().setValue(upload);
 
-                        Toast.makeText(ConfirmationActivity.this, "Gambar berhasil diunggah",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ConfirmationActivity.this,
+                                "Gambar berhasil diunggah", Toast.LENGTH_SHORT).show();
 
                         OkHttpClient client = new OkHttpClient();
                         String url = "http://sawadikap-endpoint.herokuapp.com/api/input";
