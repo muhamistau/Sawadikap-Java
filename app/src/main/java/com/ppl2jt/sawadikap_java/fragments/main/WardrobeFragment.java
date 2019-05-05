@@ -158,7 +158,7 @@ public class WardrobeFragment extends Fragment {
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
-
+                swipeRefreshLayout.setRefreshing(false);
 //                removeSimpleProgressDialog();
             }
 
