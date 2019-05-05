@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.main.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingVertical="16dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            app:cardElevation="10dp">
+            android:layout_marginVertical="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,8 +25,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/common_google_signin_btn_icon_dark" />
+                    android:background="@color/colorAccent"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_account_circle_black_24dp"
+                    android:tint="@android:color/white" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -61,7 +62,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            app:cardElevation="10dp">
+            android:layout_marginVertical="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -97,8 +98,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/common_google_signin_btn_icon_dark" />
+                    android:background="@color/colorAccent"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_trophy"
+                    android:tint="@android:color/white" />
 
             </LinearLayout>
 
