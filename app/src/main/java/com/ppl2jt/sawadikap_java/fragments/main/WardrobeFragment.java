@@ -3,6 +3,7 @@ package com.ppl2jt.sawadikap_java.fragments.main;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ppl2jt.sawadikap_java.R;
+import com.ppl2jt.sawadikap_java.WardrobeDetailActivity;
 import com.ppl2jt.sawadikap_java.job.ClothesAdapter;
 import com.ppl2jt.sawadikap_java.model.Clothes;
 
@@ -39,7 +41,7 @@ public class WardrobeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private static ProgressDialog mProgressDialog;
     private ListView listView;
-    //    private ArrayList<Clothes> clothesArrayList;
+    private ArrayList<Clothes> clothesArrayList;
     private ClothesAdapter clothesAdapter;
 
     public WardrobeFragment() {
@@ -90,6 +92,7 @@ public class WardrobeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wardrobe, container, false);
+        clothesArrayList = new ArrayList<>();
 
         swipeRefreshLayout = view.findViewById(R.id.swipeLayout);
         listView = view.findViewById(R.id.listView);
@@ -100,6 +103,17 @@ public class WardrobeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(), "Item clicked " + position,
                         Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), WardrobeDetailActivity.class);
+                intent.putExtra("id_pakaian", clothesArrayList.get(position).getId());
+                intent.putExtra("id_user", clothesArrayList.get(position).getIdUser());
+                intent.putExtra("id_request", clothesArrayList.get(position).getIdRequest());
+                intent.putExtra("jenis_ukuran", clothesArrayList.get(position).getSize());
+                intent.putExtra("jenis_gender", clothesArrayList.get(position).getGender());
+                intent.putExtra("jenis_usia", clothesArrayList.get(position).getAge());
+                intent.putExtra("jenis_baju", clothesArrayList.get(position).getCategory());
+                intent.putExtra("foto", clothesArrayList.get(position).getPicUrl());
+                intent.putExtra("status", clothesArrayList.get(position).getStatus());
+                startActivity(intent);
             }
         });
 
@@ -161,7 +175,6 @@ public class WardrobeFragment extends Fragment {
                     });
 
                     String stringResponse = response.body().string();
-                    final ArrayList<Clothes> clothesArrayList = new ArrayList<>();
 
                     try {
 
@@ -171,6 +184,8 @@ public class WardrobeFragment extends Fragment {
                         Log.d("JSONArray", dataArray.length() + "");
 
                         JSONObject dataObject;
+
+                        clothesArrayList.clear();
 
                         for (int i = 0; i < dataArray.length(); i++) {
 
