@@ -35,7 +35,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_toEndOf="@id/image"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/category"
@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="bottom"
+                    android:gravity="bottom|end"
                     tools:text="one" />
 
             </LinearLayout>
