@@ -49,4 +49,12 @@ public class WardrobeDetailActivity extends AppCompatActivity {
     public void backPressed(View view) {
         onBackPressed();
     }
+
+    public void deleteFromWardrobe(View view) {
+        // Call API Endpoint to delete the selected ID from wardrobe
+    }
+
+    public void Sedekahkan(View view) {
+        // Call API Endpoint to change the "sedekah" status
+    }
 }

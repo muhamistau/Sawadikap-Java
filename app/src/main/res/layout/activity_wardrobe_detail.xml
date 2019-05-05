@@ -94,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/childRed"
+                    android:onClick="deleteFromWardrobe"
                     android:text="Hapus" />
 
                 <Button
@@ -104,6 +105,7 @@
                     android:background="@color/colorAccent"
                     android:clickable="true"
                     android:focusable="true"
+                    android:onClick="Sedekahkan"
                     android:text="Sedekahkan" />
 
             </LinearLayout>
