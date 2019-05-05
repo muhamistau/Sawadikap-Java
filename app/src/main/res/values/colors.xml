@@ -8,4 +8,6 @@
     <color name="teenPurple">#9C27B0</color>
     <color name="adultBlue">#3F51B5</color>
     <color name="unselected">#888888</color>
+    <color name="materialRed">#B71C1C</color>
+    <color name="materialYellow">#F9A825</color>
 </resources>
