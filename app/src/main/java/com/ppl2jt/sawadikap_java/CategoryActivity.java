@@ -185,7 +185,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.unselected, R.color.unselected, R.color.unselected,
                         R.color.unselected);
-                rating = "Tidak Layak";
+                rating = "Rusak";
             }
         });
         star2.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +196,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.unselected, R.color.unselected,
                         R.color.unselected);
-                rating = "Agak Rusak";
+                rating = "Sedikit Rusak";
             }
         });
         star3.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +207,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.colorAccent, R.color.unselected,
                         R.color.unselected);
-                rating = "Layak Pakai";
+                rating = "Normal";
             }
         });
         star4.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +218,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_border_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.colorAccent, R.color.colorAccent,
                         R.color.unselected);
-                rating = "Masih Bagus";
+                rating = "Seperti Baru";
             }
         });
         star5.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +229,7 @@ public class CategoryActivity extends AppCompatActivity {
                         R.drawable.ic_star_black_24dp, R.color.colorAccent,
                         R.color.colorAccent, R.color.colorAccent, R.color.colorAccent,
                         R.color.colorAccent);
-                rating = "Seperti Baru";
+                rating = "Baru";
             }
         });
     }
