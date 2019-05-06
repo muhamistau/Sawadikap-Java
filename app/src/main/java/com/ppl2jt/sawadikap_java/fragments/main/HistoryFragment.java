@@ -55,14 +55,6 @@ public class HistoryFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         requestsArrayList = new ArrayList<>();
-        requestsArrayList.add(new Requests(0, 1, "test",
-                "Telah disedekahkan"));
-
-        requestsArrayList.add(new Requests(0, 1, "test",
-                "Telah diambil oleh kurir"));
-
-        requestsArrayList.add(new Requests(0, 1, "test",
-                "Telah ditolak"));
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -152,7 +144,6 @@ public class HistoryFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
 
                     swipeRefreshLayout.setRefreshing(false);
                 }
