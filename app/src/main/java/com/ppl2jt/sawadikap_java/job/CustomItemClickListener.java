@@ -1,0 +1,7 @@
+package com.ppl2jt.sawadikap_java.job;
+
+import android.view.View;
+
+public interface CustomItemClickListener {
+    public void onItemClick(View v, int position);
+}

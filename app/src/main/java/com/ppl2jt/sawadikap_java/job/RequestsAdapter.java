@@ -19,9 +19,11 @@ import java.util.ArrayList;
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
 
     ArrayList<Requests> requestsArrayList;
+    CustomItemClickListener listener;
 
-    public RequestsAdapter(ArrayList<Requests> requestsArrayList) {
+    public RequestsAdapter(ArrayList<Requests> requestsArrayList, CustomItemClickListener listener) {
         this.requestsArrayList = requestsArrayList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -29,6 +31,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     public RequestsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.requests_item,
                 parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -63,7 +66,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         return requestsArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView type;
         public TextView location;
@@ -79,6 +82,13 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             status = itemView.findViewById(R.id.status);
             cardView = itemView.findViewById(R.id.image);
             icon = itemView.findViewById(R.id.icon);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onItemClick(v, this.getAdapterPosition());
+
         }
     }
 }
