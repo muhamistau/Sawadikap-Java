@@ -44,11 +44,11 @@ public class HistoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    CardView statusCard;
-    ImageView statusIcon;
-    TextView statusText;
-    TextView locationText;
-    TextView timeText;
+    private CardView statusCard;
+    private ImageView statusIcon;
+    private TextView statusText;
+    private TextView locationText;
+    private TextView timeText;
 
     private BottomSheetBehavior bottomSheetBehavior;
 
