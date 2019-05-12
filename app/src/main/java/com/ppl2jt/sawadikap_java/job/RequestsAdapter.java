@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
 
-    ArrayList<Requests> requestsArrayList;
+    private ArrayList<Requests> requestsArrayList;
     CustomItemClickListener listener;
 
     public RequestsAdapter(ArrayList<Requests> requestsArrayList, CustomItemClickListener listener) {
@@ -40,7 +40,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         Resources res = holder.itemView.getContext().getResources();
 
         holder.type.setText(requestsArrayList.get(position).getRequestDate());
-        holder.location.setText(requestsArrayList.get(position).getRequestDate());
+        holder.location.setText(requestsArrayList.get(position).getReceiver());
         holder.status.setText(requestsArrayList.get(position).getStatus());
 
         if (requestsArrayList.get(position).getStatus().contains("sedekah")) {
@@ -88,7 +88,6 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         @Override
         public void onClick(View v) {
             listener.onItemClick(v, this.getAdapterPosition());
-
         }
     }
 }

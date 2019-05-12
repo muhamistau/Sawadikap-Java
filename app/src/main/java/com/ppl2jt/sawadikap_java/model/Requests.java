@@ -4,12 +4,14 @@ public class Requests {
 
     private int idRequest;
     private int idUser;
+    private String receiver;
     private String requestDate;
     private String status;
 
-    public Requests(int idRequest, int idUser, String requestDate, String status) {
+    public Requests(int idRequest, int idUser, String receiver, String requestDate, String status) {
         this.idRequest = idRequest;
         this.idUser = idUser;
+        this.receiver = receiver;
         this.requestDate = requestDate;
         this.status = status;
     }
@@ -28,6 +30,14 @@ public class Requests {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
     public String getRequestDate() {

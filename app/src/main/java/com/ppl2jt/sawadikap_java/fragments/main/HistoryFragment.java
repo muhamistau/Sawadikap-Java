@@ -146,6 +146,7 @@ public class HistoryFragment extends Fragment {
                             requestsArrayList.add(new Requests(
                                     dataObject.getInt("id_request"),
                                     dataObject.getInt("id_user"),
+                                    dataObject.getString("penerima"),
                                     dataObject.getString("request_date"),
                                     dataObject.getString("status")));
 
@@ -161,10 +162,16 @@ public class HistoryFragment extends Fragment {
                                             public void onItemClick(View v, int position) {
                                                 Toast.makeText(getActivity(), "Item " + position,
                                                         Toast.LENGTH_SHORT).show();
-                                                bottomSheetBehavior
-                                                        .setState(BottomSheetBehavior.STATE_COLLAPSED);
-                                                bottomSheetBehavior
-                                                        .setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                                                if (bottomSheetBehavior.getState() ==
+                                                        BottomSheetBehavior.STATE_EXPANDED) {
+                                                    bottomSheetBehavior
+                                                            .setState(BottomSheetBehavior.STATE_COLLAPSED);
+                                                } else {
+                                                    bottomSheetBehavior
+                                                            .setState(BottomSheetBehavior.STATE_EXPANDED);
+                                                }
+
                                                 if (requestsArrayList.get(position).getStatus()
                                                         .contains("sedekah")) {
                                                     statusIcon.setImageResource(
@@ -188,7 +195,7 @@ public class HistoryFragment extends Fragment {
                                                         .getStatus());
                                                 // Set Location Text from clicked Request
                                                 locationText.setText(requestsArrayList.get(position)
-                                                        .getStatus());
+                                                        .getReceiver());
                                                 // Set Time Text from clicked Request
                                                 timeText.setText(requestsArrayList.get(position)
                                                         .getRequestDate());
