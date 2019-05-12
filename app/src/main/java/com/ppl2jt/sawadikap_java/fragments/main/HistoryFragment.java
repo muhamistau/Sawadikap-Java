@@ -194,8 +194,13 @@ public class HistoryFragment extends Fragment {
                                                 statusText.setText(requestsArrayList.get(position)
                                                         .getStatus());
                                                 // Set Location Text from clicked Request
-                                                locationText.setText(requestsArrayList.get(position)
-                                                        .getReceiver());
+                                                if (requestsArrayList.get(position)
+                                                        .getReceiver().equals("")) {
+                                                    locationText.setText("Belum disedekahkan");
+                                                } else {
+                                                    locationText.setText(requestsArrayList.get(position)
+                                                            .getReceiver());
+                                                }
                                                 // Set Time Text from clicked Request
                                                 timeText.setText(requestsArrayList.get(position)
                                                         .getRequestDate());

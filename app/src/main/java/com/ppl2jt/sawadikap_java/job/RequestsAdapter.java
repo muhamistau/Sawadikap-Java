@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
 
     private ArrayList<Requests> requestsArrayList;
-    CustomItemClickListener listener;
+    private CustomItemClickListener listener;
 
     public RequestsAdapter(ArrayList<Requests> requestsArrayList, CustomItemClickListener listener) {
         this.requestsArrayList = requestsArrayList;
