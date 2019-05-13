@@ -6,19 +6,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.main.HistoryFragment">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:foregroundTint="@color/colorAccent">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <TextView
+            android:id="@+id/refreshText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Tarik kebawah untuk menyegarkan" />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:foregroundTint="@color/colorAccent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/bottomSheet"
@@ -83,11 +96,12 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/clothesText"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="top"
-                            android:text="Status" />
+                            tools:text="Status" />
 
                     </LinearLayout>
 
@@ -136,7 +150,7 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="top"
-                            android:text="location" />
+                            android:text="Lokasi" />
 
                     </LinearLayout>
 

@@ -7,13 +7,16 @@ public class Requests {
     private String receiver;
     private String requestDate;
     private String status;
+    private String clothesType;
 
-    public Requests(int idRequest, int idUser, String receiver, String requestDate, String status) {
+    public Requests(int idRequest, int idUser, String receiver, String requestDate, String status,
+                    String clothesType) {
         this.idRequest = idRequest;
         this.idUser = idUser;
         this.receiver = receiver;
         this.requestDate = requestDate;
         this.status = status;
+        this.clothesType = clothesType;
     }
 
     public int getIdRequest() {
@@ -54,5 +57,13 @@ public class Requests {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getClothesType() {
+        return clothesType;
+    }
+
+    public void setClothesType(String clothesType) {
+        this.clothesType = clothesType;
     }
 }

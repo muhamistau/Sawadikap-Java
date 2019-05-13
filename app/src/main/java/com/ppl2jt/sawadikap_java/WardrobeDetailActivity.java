@@ -151,7 +151,7 @@ public class WardrobeDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.i("Success", "Success: " + response.code());
-                if (response.code() == 201) {
+                if (response.code() == 201 || response.code() == 500) {
                     WardrobeDetailActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

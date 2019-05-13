@@ -15,6 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".SignupActivity5"></activity>
+        <activity
+            android:name=".SignupConfirmationActivity"
+            android:theme="@style/NoActionTheme" />
+        <activity
+            android:name=".SignupActivity4"
+            android:theme="@style/NoActionTheme" />
+        <activity
+            android:name=".SignupActivity3"
+            android:theme="@style/NoActionTheme" />
+        <activity
+            android:name=".SignupActivity2"
+            android:theme="@style/NoActionTheme" />
         <activity
             android:name=".WardrobeDetailActivity"
             android:theme="@style/NoActionTheme" />
@@ -47,8 +60,7 @@
             android:theme="@style/NoActionTheme" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/NoActionTheme" />
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

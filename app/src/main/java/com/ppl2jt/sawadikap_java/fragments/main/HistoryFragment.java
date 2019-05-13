@@ -34,6 +34,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -47,8 +49,10 @@ public class HistoryFragment extends Fragment {
     private CardView statusCard;
     private ImageView statusIcon;
     private TextView statusText;
+    private TextView clothesText;
     private TextView locationText;
     private TextView timeText;
+    private TextView refreshText;
 
     private BottomSheetBehavior bottomSheetBehavior;
 
@@ -70,8 +74,10 @@ public class HistoryFragment extends Fragment {
         statusCard = view.findViewById(R.id.statusCard);
         statusIcon = view.findViewById(R.id.statusIcon);
         statusText = view.findViewById(R.id.statusText);
+        clothesText = view.findViewById(R.id.clothesText);
         locationText = view.findViewById(R.id.locationText);
         timeText = view.findViewById(R.id.timeText);
+        refreshText = view.findViewById(R.id.refreshText);
 
         requestsArrayList = new ArrayList<>();
 
@@ -112,6 +118,7 @@ public class HistoryFragment extends Fragment {
                     }
                 });
                 swipeRefreshLayout.setRefreshing(false);
+                refreshText.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -148,7 +155,9 @@ public class HistoryFragment extends Fragment {
                                     dataObject.getInt("id_user"),
                                     dataObject.getString("penerima"),
                                     dataObject.getString("request_date"),
-                                    dataObject.getString("status")));
+                                    dataObject.getString("status"),
+                                    dataObject.getString("jenis_baju")
+                            ));
 
                         }
 
@@ -160,8 +169,8 @@ public class HistoryFragment extends Fragment {
                                         new CustomItemClickListener() {
                                             @Override
                                             public void onItemClick(View v, int position) {
-                                                Toast.makeText(getActivity(), "Item " + position,
-                                                        Toast.LENGTH_SHORT).show();
+//                                                Toast.makeText(getActivity(), "Item " + position,
+//                                                        Toast.LENGTH_SHORT).show();
 
                                                 if (bottomSheetBehavior.getState() ==
                                                         BottomSheetBehavior.STATE_EXPANDED) {
@@ -193,9 +202,13 @@ public class HistoryFragment extends Fragment {
                                                 // Set Status Text from clicked Request
                                                 statusText.setText(requestsArrayList.get(position)
                                                         .getStatus());
+                                                clothesText.setText(requestsArrayList.get(position)
+                                                        .getClothesType());
                                                 // Set Location Text from clicked Request
                                                 if (requestsArrayList.get(position)
-                                                        .getReceiver().equals("")) {
+                                                        .getReceiver().equals("") ||
+                                                        requestsArrayList.get(position)
+                                                                .getReceiver() == NULL) {
                                                     locationText.setText("Belum disedekahkan");
                                                 } else {
                                                     locationText.setText(requestsArrayList.get(position)
@@ -209,6 +222,7 @@ public class HistoryFragment extends Fragment {
                                         });
                                 recyclerView.setLayoutManager(layoutManager);
                                 recyclerView.setAdapter(adapter);
+                                refreshText.setVisibility(View.GONE);
                             }
                         });
                     } catch (Exception e) {

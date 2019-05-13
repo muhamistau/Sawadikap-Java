@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,7 @@ public class WardrobeFragment extends Fragment {
     private ListView listView;
     private ArrayList<Clothes> clothesArrayList;
     private ClothesAdapter clothesAdapter;
+    private TextView refreshText;
 
     public WardrobeFragment() {
         // Required empty public constructor
@@ -96,6 +98,7 @@ public class WardrobeFragment extends Fragment {
 
         swipeRefreshLayout = view.findViewById(R.id.swipeLayout);
         listView = view.findViewById(R.id.listView);
+        refreshText = view.findViewById(R.id.refreshText);
 //        clothesArrayList = new ArrayList<>();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -159,6 +162,7 @@ public class WardrobeFragment extends Fragment {
                     }
                 });
                 swipeRefreshLayout.setRefreshing(false);
+                refreshText.setVisibility(View.VISIBLE);
 //                removeSimpleProgressDialog();
             }
 
@@ -216,6 +220,7 @@ public class WardrobeFragment extends Fragment {
                             public void run() {
                                 clothesAdapter = new ClothesAdapter(getActivity(), clothesArrayList);
                                 listView.setAdapter(clothesAdapter);
+                                refreshText.setVisibility(View.GONE);
                             }
                         });
                     } catch (Exception e) {
