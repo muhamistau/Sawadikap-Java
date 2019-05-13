@@ -9,21 +9,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ppl2jt.sawadikap_java.job.OnboardingPagerAdapter;
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 public class OnboardingActivity extends AppCompatActivity {
 
     OnboardingPagerAdapter onboardingPagerAdapter;
     ViewPager onboardingViewPager;
     Button nextButton;
+    WormDotsIndicator dotsIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
+        dotsIndicator = findViewById(R.id.worm_dots_indicator);
 
         onboardingPagerAdapter = new OnboardingPagerAdapter(getSupportFragmentManager());
         onboardingViewPager = findViewById(R.id.onboardingViewPager);
         onboardingViewPager.setAdapter(onboardingPagerAdapter);
+        dotsIndicator.setViewPager(onboardingViewPager);
         nextButton = findViewById(R.id.buttonLanjut);
     }
 

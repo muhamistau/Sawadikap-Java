@@ -3,11 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorAccent"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="16dp"
     tools:context=".fragments.onboarding.On3Fragment">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_undraw_online_shopping_ga73"
+        app:civ_circle_background_color="@android:color/white" />
 
     <TextView
         android:layout_width="match_parent"
