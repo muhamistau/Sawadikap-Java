@@ -2,11 +2,13 @@ package com.ppl2jt.sawadikap_java;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         fab = findViewById(R.id.fab);
         bottomBar = findViewById(R.id.bottomBar);
+        Toolbar myToolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(myToolbar);
 
         bottomBar.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,5 +79,25 @@ public class MainActivity extends AppCompatActivity {
 //        text = findViewById(R.id.textView);
 //        text.setText("" + intent.getStringExtra("email") + "\n"
 //                + intent.getStringExtra("username") + intent.getStringExtra("picUrl"));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.log_out:
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                getSharedPreferences("PREFERENCE_STORY", MODE_PRIVATE).edit()
+                        .putBoolean("isLoggedIn", false).apply();
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_bar, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
