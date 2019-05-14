@@ -159,10 +159,10 @@ public class WardrobeFragment extends Fragment {
                     @Override
                     public void run() {
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                        refreshText.setVisibility(View.VISIBLE);
                     }
                 });
-                swipeRefreshLayout.setRefreshing(false);
-                refreshText.setVisibility(View.VISIBLE);
 //                removeSimpleProgressDialog();
             }
 
@@ -183,9 +183,9 @@ public class WardrobeFragment extends Fragment {
                     try {
 
 
-                        Log.d("JSONSTRING", stringResponse);
+//                        Log.d("JSONSTRING", stringResponse);
                         JSONArray dataArray = new JSONArray(stringResponse);
-                        Log.d("JSONArray", dataArray.length() + "");
+//                        Log.d("JSONArray", dataArray.length() + "");
 
                         JSONObject dataObject;
 
@@ -220,6 +220,7 @@ public class WardrobeFragment extends Fragment {
                             public void run() {
                                 clothesAdapter = new ClothesAdapter(getActivity(), clothesArrayList);
                                 listView.setAdapter(clothesAdapter);
+                                swipeRefreshLayout.setRefreshing(false);
                                 refreshText.setVisibility(View.GONE);
                             }
                         });
@@ -228,7 +229,6 @@ public class WardrobeFragment extends Fragment {
                     }
 
 //                    removeSimpleProgressDialog();
-                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         });

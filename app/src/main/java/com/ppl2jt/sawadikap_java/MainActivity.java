@@ -21,17 +21,24 @@ import com.ppl2jt.sawadikap_java.fragments.main.WardrobeFragment;
 public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton fab;
-    final Fragment fragment1 = new HomeFragment();
-    final Fragment fragment2 = new WardrobeFragment();
-    final Fragment fragment3 = new HistoryFragment();
-    final FragmentManager fm = getSupportFragmentManager();
+    Fragment fragment1;
+    Fragment fragment2;
+    Fragment fragment3;
+    FragmentManager fm;
     BottomNavigationView bottomBar;
-    Fragment active = fragment1;
+    Fragment active;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fragment1 = new HomeFragment();
+        fragment2 = new WardrobeFragment();
+        fragment3 = new HistoryFragment();
+        active = fragment1;
+
+        fm = getSupportFragmentManager();
 
         fm.beginTransaction().add(R.id.main_container, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.main_container, fragment2, "2").hide(fragment2).commit();

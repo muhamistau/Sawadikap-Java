@@ -115,10 +115,10 @@ public class HistoryFragment extends Fragment {
                     @Override
                     public void run() {
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                        refreshText.setVisibility(View.VISIBLE);
                     }
                 });
-                swipeRefreshLayout.setRefreshing(false);
-                refreshText.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -222,14 +222,13 @@ public class HistoryFragment extends Fragment {
                                         });
                                 recyclerView.setLayoutManager(layoutManager);
                                 recyclerView.setAdapter(adapter);
+                                swipeRefreshLayout.setRefreshing(false);
                                 refreshText.setVisibility(View.GONE);
                             }
                         });
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         });
