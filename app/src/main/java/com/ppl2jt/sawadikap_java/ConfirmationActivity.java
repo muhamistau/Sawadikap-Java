@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.ppl2jt.sawadikap_java.constant.Url;
 import com.ppl2jt.sawadikap_java.job.UploadImage;
 
 import java.io.IOException;
@@ -114,7 +115,6 @@ public class ConfirmationActivity extends AppCompatActivity {
                                 "Gambar berhasil diunggah", Toast.LENGTH_SHORT).show();
 
                         OkHttpClient client = new OkHttpClient();
-                        String url = "http://sawadikap-endpoint.herokuapp.com/api/input";
 
                         RequestBody requestBody = new FormBody.Builder()
                                 .add("id_user", Integer.toString(userId))
@@ -127,7 +127,7 @@ public class ConfirmationActivity extends AppCompatActivity {
                                 .build();
 
                         Request request = new Request.Builder()
-                                .url(url)
+                                .url(Url.INPUT)
                                 .post(requestBody)
                                 .build();
 

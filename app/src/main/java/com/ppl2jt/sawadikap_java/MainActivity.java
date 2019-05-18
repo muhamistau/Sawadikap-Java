@@ -1,5 +1,6 @@
 package com.ppl2jt.sawadikap_java;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        navigationView = findViewById(R.id.nv);gitlab
+//        navigationView = findViewById(R.id.nv); lab
 
         fragment1 = new HomeFragment();
         fragment2 = new WardrobeFragment();
@@ -112,10 +114,20 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.log_out:
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                getSharedPreferences("PREFERENCE_STORY", MODE_PRIVATE).edit()
-                        .putBoolean("isLoggedIn", false).apply();
-                startActivity(intent);
+                new AlertDialog.Builder(this)
+                        .setMessage("Apakah anda ingin keluar dari akun?")
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                finishAffinity();
+                                getSharedPreferences("PREFERENCE_STORY", MODE_PRIVATE).edit()
+                                        .putBoolean("isLoggedIn", false).apply();
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Tidak", null)
+                        .show();
                 return true;
             case R.id.account:
                 Toast.makeText(MainActivity.this, "Tombol akun ditekan",
