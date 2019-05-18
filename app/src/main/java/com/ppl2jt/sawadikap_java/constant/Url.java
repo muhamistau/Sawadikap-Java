@@ -18,4 +18,8 @@ public class Url {
     public static String userRequest(int id) {
         return BASE + "request/" + Integer.toString(id);
     }
+
+    public static String userNumberOfSedekah(int id) {
+        return BASE + "banyakSedekah/" + Integer.toString(id);
+    }
 }
