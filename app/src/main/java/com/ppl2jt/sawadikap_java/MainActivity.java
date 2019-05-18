@@ -5,15 +5,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.ppl2jt.sawadikap_java.fragments.main.HistoryFragment;
 import com.ppl2jt.sawadikap_java.fragments.main.HomeFragment;
 import com.ppl2jt.sawadikap_java.fragments.main.WardrobeFragment;
@@ -27,11 +31,25 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fm;
     BottomNavigationView bottomBar;
     Fragment active;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.open, R.string.close);
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+//        navigationView = findViewById(R.id.nv);gitlab
 
         fragment1 = new HomeFragment();
         fragment2 = new WardrobeFragment();
@@ -90,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) return true;
+
         switch (item.getItemId()) {
             case R.id.log_out:
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -97,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
                         .putBoolean("isLoggedIn", false).apply();
                 startActivity(intent);
                 return true;
+            case R.id.account:
+                Toast.makeText(MainActivity.this, "Tombol akun ditekan",
+                        Toast.LENGTH_SHORT).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
