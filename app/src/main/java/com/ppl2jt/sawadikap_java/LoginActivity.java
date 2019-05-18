@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.ppl2jt.sawadikap_java.constant.Url;
 
 import org.json.JSONObject;
 
@@ -57,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("logging0", "pressed");
 
         OkHttpClient client = new OkHttpClient();
-        String url = "http://sawadikap-endpoint.herokuapp.com/api/login";
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("email", emailInput.getText().toString())
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(Url.LOGIN)
                 .post(requestBody)
                 .build();
 

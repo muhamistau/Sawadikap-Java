@@ -19,6 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ppl2jt.sawadikap_java.R;
 import com.ppl2jt.sawadikap_java.WardrobeDetailActivity;
+import com.ppl2jt.sawadikap_java.constant.Url;
 import com.ppl2jt.sawadikap_java.job.ClothesAdapter;
 import com.ppl2jt.sawadikap_java.model.Clothes;
 
@@ -140,13 +141,12 @@ public class WardrobeFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(true);
 
         OkHttpClient client = new OkHttpClient();
-        String url = "http://sawadikap-endpoint.herokuapp.com/api/pakaian/";
 
         int userId = getActivity().getSharedPreferences("PREFERENCE_STORY",
                 getActivity().MODE_PRIVATE).getInt("userId", 0);
 
         Request request = new Request.Builder()
-                .url(url + userId)
+                .url(Url.userPakaian(userId))
                 .get()
                 .build();
 

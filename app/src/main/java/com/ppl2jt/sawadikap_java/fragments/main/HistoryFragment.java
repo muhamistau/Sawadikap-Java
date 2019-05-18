@@ -18,6 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.ppl2jt.sawadikap_java.R;
+import com.ppl2jt.sawadikap_java.constant.Url;
 import com.ppl2jt.sawadikap_java.job.CustomItemClickListener;
 import com.ppl2jt.sawadikap_java.job.RequestsAdapter;
 import com.ppl2jt.sawadikap_java.model.Requests;
@@ -96,13 +97,12 @@ public class HistoryFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(true);
 
         OkHttpClient client = new OkHttpClient();
-        String url = "http://sawadikap-endpoint.herokuapp.com/api/request/";
 
         int userId = getActivity().getSharedPreferences("PREFERENCE_STORY",
                 getActivity().MODE_PRIVATE).getInt("userId", 0);
 
         final Request request = new Request.Builder()
-                .url(url + userId)
+                .url(Url.userRequest(userId))
                 .get()
                 .build();
 

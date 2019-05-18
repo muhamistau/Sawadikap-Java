@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ppl2jt.sawadikap_java.constant.Url;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -57,7 +59,6 @@ public class SignupConfirmationActivity extends AppCompatActivity {
 
     public void signup(View view) {
         OkHttpClient client = new OkHttpClient();
-        String url = "http://sawadikap-endpoint.herokuapp.com/api/signup";
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("email", getIntent().getStringExtra("email"))
@@ -68,7 +69,7 @@ public class SignupConfirmationActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(Url.SIGNUP)
                 .post(requestBody)
                 .build();
 
