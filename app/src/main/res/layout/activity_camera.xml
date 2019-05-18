@@ -12,12 +12,23 @@
         android:layout_height="0dp"
         android:layout_margin="16dp"
         android:layout_weight="3"
+        app:cardBackgroundColor="@color/unselected"
         app:cardCornerRadius="16dp">
 
         <ImageView
             android:id="@+id/cameraImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="Foto dari kamera"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/cameraPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="64dp"
+            android:src="@drawable/ic_camera_alt_black_24dp"
+            android:tint="@color/colorPrimary"
             android:contentDescription="Image From Camera" />
 
 
@@ -30,44 +41,52 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/fromGallery"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="takeGallery"
-                android:text="Gallery" />
+                android:src="@drawable/ic_apps_black_24dp"
+                android:tint="@color/colorAccent" />
 
-            <Button
+            <androidx.cardview.widget.CardView
                 android:id="@+id/takePicture"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_margin="8dp"
+                android:onClick="takePicture"
+                app:cardBackgroundColor="@color/colorAccent"
+                app:cardCornerRadius="35dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_camera_alt_black_24dp"
+                    android:tint="@color/colorPrimary" />
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageButton
+                android:id="@+id/checkButton"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="takePicture"
-                android:text="Take pic" />
+                android:clickable="false"
+                android:onClick="nextPage"
+                android:src="@drawable/ic_check_black_24dp"
+                android:tint="@color/colorAccent"
+                android:visibility="invisible" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonLanjut"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="nextPage"
-            android:text="Lanjut"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 

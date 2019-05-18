@@ -13,13 +13,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -34,8 +34,9 @@ public class CameraActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST_CODE = 1002;
 
     ImageView cameraImage;
-    Button takePicture;
-    ProgressBar progressBar;
+    ImageView cameraPlaceholder;
+    ImageButton checkButton;
+    CardView takePicture;
 
     Uri imageUri;
     Uri downloadUri;
@@ -46,8 +47,13 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         cameraImage = findViewById(R.id.cameraImage);
+        cameraPlaceholder = findViewById(R.id.cameraPlaceholder);
         takePicture = findViewById(R.id.takePicture);
-        progressBar = findViewById(R.id.progress_bar);
+        checkButton = findViewById(R.id.checkButton);
+
+
+        cameraPlaceholder.setVisibility(View.VISIBLE);
+        checkButton.setVisibility(View.INVISIBLE);
     }
 
     public void takeGallery(View view) {
@@ -188,6 +194,8 @@ public class CameraActivity extends AppCompatActivity {
                     cameraImage.setImageBitmap(photo);
                     break;
             }
+            cameraPlaceholder.setVisibility(View.GONE);
+            checkButton.setVisibility(View.VISIBLE);
         }
     }
 

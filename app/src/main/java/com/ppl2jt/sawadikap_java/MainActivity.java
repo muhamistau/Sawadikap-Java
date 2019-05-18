@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         navigationView = findViewById(R.id.nv);
 
         fragment1 = new HomeFragment();
