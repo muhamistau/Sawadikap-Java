@@ -2,8 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/account"
-        android:icon="@drawable/ic_account_circle_black_24dp"
-        android:title="My Account" />
+        android:id="@+id/edit"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:title="Ubah Detil Akun" />
+
+    <item
+        android:id="@+id/log_out"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:iconTint="@color/colorAccent"
+        android:title="Keluar" />
 
 </menu>
