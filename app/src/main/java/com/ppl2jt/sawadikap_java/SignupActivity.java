@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.ppl2jt.sawadikap_java.job.Checker;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (emailEditText.getText().toString().equals("")) {
                     emailInputLayout.setError("Tidak boleh kosong");
-                } else if (!isEmailValid(emailEditText.getText().toString())) {
+                } else if (!Checker.isEmailValid(emailEditText.getText().toString())) {
                     emailInputLayout.setError("Alamat email tidak valid");
                 } else {
                     Intent intent = new Intent(SignupActivity.this, SignupActivity2.class);
@@ -41,9 +42,5 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    boolean isEmailValid(CharSequence email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
