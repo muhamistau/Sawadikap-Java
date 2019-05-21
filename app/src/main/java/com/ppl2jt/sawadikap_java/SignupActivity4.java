@@ -49,10 +49,8 @@ public class SignupActivity4 extends AppCompatActivity {
                     intent.putExtra("username", username);
                     intent.putExtra("address", address);
                     intent.putExtra("password", passwordEditText.getText().toString());
-//                    Log.d("TESTemail", email);
-//                    Log.d("TESTname", name);
-//                    Log.d("TESTaddress", address);
-//                    Log.d("TESTname", passwordEditText.getText().toString());
+
+                    finishAffinity();
                     startActivity(intent);
                 }
             }

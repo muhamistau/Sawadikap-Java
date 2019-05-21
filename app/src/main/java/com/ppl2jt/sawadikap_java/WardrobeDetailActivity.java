@@ -73,11 +73,53 @@ public class WardrobeDetailActivity extends AppCompatActivity {
 
     public void deleteFromWardrobe(View view) {
         // Call API Endpoint to delete the selected ID from wardrobe
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(Url.deletePakaian(clothesId))
+                .delete()
+                .build();
+
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i("Error", "Failed to connect: " + e.getMessage());
+
+                WardrobeDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(WardrobeDetailActivity.this, "Failed",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+                countDownLatch.countDown();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i("Success", "Success: " + response.code());
+                if (response.code() == 200) {
+                    WardrobeDetailActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(WardrobeDetailActivity.this,
+                                    "Success, deleted", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    finish();
+
+                }
+                countDownLatch.countDown();
+            }
+        });
     }
 
     public void Sedekahkan(View view) {
         // Call API Endpoint to change the "sedekah" status
-        Log.d("SEDEKAH", "Clicked");
+//        Log.d("SEDEKAH", "Clicked");
         OkHttpClient client = new OkHttpClient();
 
         RequestBody requestBody = new FormBody.Builder()
