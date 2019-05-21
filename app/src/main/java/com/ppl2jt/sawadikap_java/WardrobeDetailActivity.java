@@ -1,7 +1,5 @@
 package com.ppl2jt.sawadikap_java;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.ppl2jt.sawadikap_java.constant.Url;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.concurrent.CountDownLatch;
 
 import okhttp3.Call;
@@ -34,7 +34,7 @@ public class WardrobeDetailActivity extends AppCompatActivity {
     TextView condition;
     TextView status;
     int userId;
-    static ProgressDialog mProgressDialog;
+    int clothesId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class WardrobeDetailActivity extends AppCompatActivity {
 
         userId = getSharedPreferences("PREFERENCE_STORY", MODE_PRIVATE)
                 .getInt("userId", 0);
+        clothesId = getIntent().getIntExtra("id_pakaian", 0);
 
         picture = findViewById(R.id.fotoPakaian);
         type = findViewById(R.id.tipe);
@@ -74,60 +75,21 @@ public class WardrobeDetailActivity extends AppCompatActivity {
         // Call API Endpoint to delete the selected ID from wardrobe
     }
 
-    public static void removeSimpleProgressDialog() {
-        try {
-            if (mProgressDialog != null) {
-                if (mProgressDialog.isShowing()) {
-                    mProgressDialog.dismiss();
-                    mProgressDialog = null;
-                }
-            }
-        } catch (IllegalArgumentException ie) {
-            ie.printStackTrace();
-
-        } catch (RuntimeException re) {
-            re.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void showSimpleProgressDialog(Context context, String title,
-                                                String msg, boolean isCancelable) {
-        try {
-            if (mProgressDialog == null) {
-                mProgressDialog = ProgressDialog.show(context, title, msg);
-                mProgressDialog.setCancelable(isCancelable);
-            }
-
-            if (!mProgressDialog.isShowing()) {
-                mProgressDialog.show();
-            }
-
-        } catch (IllegalArgumentException ie) {
-            ie.printStackTrace();
-        } catch (RuntimeException re) {
-            re.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void Sedekahkan(View view) {
         // Call API Endpoint to change the "sedekah" status
         Log.d("SEDEKAH", "Clicked");
         OkHttpClient client = new OkHttpClient();
-        String url = "http://sawadikap-endpoint.herokuapp.com/api/sedekah";
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("id_user", Integer.toString(userId))
-                .add("request_date", "tanggal sekian")
+                .add("request_date", new Timestamp(System.currentTimeMillis()).toString())
                 .add("status", "Diproses oleh kurir")
+                .add("id_pakaian", Integer.toString(clothesId))
+                .add("penerima", "")
                 .build();
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(Url.SEDEKAH)
                 .post(requestBody)
                 .build();
 

@@ -182,10 +182,7 @@ public class WardrobeFragment extends Fragment {
 
                     try {
 
-
-//                        Log.d("JSONSTRING", stringResponse);
                         JSONArray dataArray = new JSONArray(stringResponse);
-//                        Log.d("JSONArray", dataArray.length() + "");
 
                         JSONObject dataObject;
 
@@ -198,7 +195,6 @@ public class WardrobeFragment extends Fragment {
 
                             clothesArrayList.add(
                                     new Clothes(
-
                                             dataObject.getInt("id_pakaian"),
                                             dataObject.getInt("id_user"),
                                             dataObject.getInt("id_request"),
@@ -227,8 +223,6 @@ public class WardrobeFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-//                    removeSimpleProgressDialog();
                 }
             }
         });

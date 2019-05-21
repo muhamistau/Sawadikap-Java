@@ -149,6 +149,7 @@ public class HistoryFragment extends Fragment {
                         for (int i = 0; i < dataArray.length(); i++) {
 
                             dataObject = dataArray.getJSONObject(i);
+                            Log.d("Penerima", dataObject.getString("penerima"));
 
                             requestsArrayList.add(new Requests(
                                     dataObject.getInt("id_request"),

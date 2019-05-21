@@ -115,8 +115,9 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.edit:
-                                Toast.makeText(MainActivity.this, "Ubah Akun",
-                                        Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this,
+                                        EditProfileActivity.class);
+                                startActivity(intent);
                                 break;
                             case R.id.log_out:
                                 new AlertDialog.Builder(MainActivity.this)
