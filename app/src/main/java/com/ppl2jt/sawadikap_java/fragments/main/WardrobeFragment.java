@@ -217,6 +217,8 @@ public class WardrobeFragment extends Fragment {
                                                         clothesArrayList.get(position).getSize());
                                                 intent.putExtra("status",
                                                         clothesArrayList.get(position).getStatus());
+                                                intent.putExtra("id_pakaian",
+                                                        clothesArrayList.get(position).getId());
                                                 startActivity(intent);
                                             }
                                         });
