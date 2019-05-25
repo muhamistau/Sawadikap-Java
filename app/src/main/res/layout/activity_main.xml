@@ -53,6 +53,67 @@
                 app:itemTextColor="@color/bottom_nav_color"
                 app:menu="@menu/bottom_navigation" />
 
+            <TextView
+                android:id="@+id/textview_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="220dp"
+                android:padding="8dp"
+                android:text="Galeri"
+                android:textColor="@android:color/black"
+                android:visibility="gone" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="210dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="@color/colorAccent"
+                android:clickable="true"
+                android:elevation="16dp"
+                android:focusable="true"
+                android:src="@drawable/ic_apps_black_24dp"
+                android:tint="@color/colorPrimary"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textview_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="150dp"
+                android:padding="8dp"
+                android:text="Kamera"
+                android:textColor="@android:color/black"
+                android:visibility="gone" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="140dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:backgroundTint="@color/colorAccent"
+                android:clickable="true"
+                android:elevation="16dp"
+                android:focusable="true"
+                android:src="@drawable/ic_camera_alt_black_24dp"
+                android:tint="@color/colorPrimary"
+                android:visibility="gone" />
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
@@ -64,6 +125,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="70dp"
+                android:backgroundTint="@color/colorAccent"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_add_black_24dp"

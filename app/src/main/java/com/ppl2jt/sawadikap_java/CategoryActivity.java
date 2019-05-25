@@ -21,7 +21,7 @@ public class CategoryActivity extends AppCompatActivity {
     TextView ageText, categoryText, genderText;
 
     String age, category, gender, size, rating;
-    String imageUri, imageUrl;
+    String imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         imageUri = getIntent().getStringExtra("image");
-        imageUrl = getIntent().getStringExtra("imageUrl");
 
         baby = findViewById(R.id.age_baby);
         child = findViewById(R.id.age_child);
@@ -319,7 +318,6 @@ public class CategoryActivity extends AppCompatActivity {
         intent.putExtra("size", size);
         intent.putExtra("rating", rating);
         intent.putExtra("image", imageUri);
-//        intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);
     }
 }
