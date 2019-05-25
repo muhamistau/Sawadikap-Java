@@ -9,18 +9,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ppl2jt.sawadikap_java.R;
 import com.ppl2jt.sawadikap_java.WardrobeDetailActivity;
 import com.ppl2jt.sawadikap_java.constant.Url;
 import com.ppl2jt.sawadikap_java.job.ClothesAdapter;
+import com.ppl2jt.sawadikap_java.job.CustomItemClickListener;
 import com.ppl2jt.sawadikap_java.model.Clothes;
 
 import org.json.JSONArray;
@@ -42,9 +43,10 @@ public class WardrobeFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private static ProgressDialog mProgressDialog;
-    private ListView listView;
     private ArrayList<Clothes> clothesArrayList;
-    private ClothesAdapter clothesAdapter;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
     private TextView refreshText;
 
     public WardrobeFragment() {
@@ -95,31 +97,31 @@ public class WardrobeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wardrobe, container, false);
-        clothesArrayList = new ArrayList<>();
 
         swipeRefreshLayout = view.findViewById(R.id.swipeLayout);
-        listView = view.findViewById(R.id.listView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         refreshText = view.findViewById(R.id.refreshText);
-//        clothesArrayList = new ArrayList<>();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Item clicked " + position,
-                        Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), WardrobeDetailActivity.class);
-                intent.putExtra("id_pakaian", clothesArrayList.get(position).getId());
-                intent.putExtra("id_user", clothesArrayList.get(position).getIdUser());
-                intent.putExtra("id_request", clothesArrayList.get(position).getIdRequest());
-                intent.putExtra("jenis_ukuran", clothesArrayList.get(position).getSize());
-                intent.putExtra("jenis_gender", clothesArrayList.get(position).getGender());
-                intent.putExtra("jenis_usia", clothesArrayList.get(position).getAge());
-                intent.putExtra("jenis_baju", clothesArrayList.get(position).getCategory());
-                intent.putExtra("foto", clothesArrayList.get(position).getPicUrl());
-                intent.putExtra("status", clothesArrayList.get(position).getStatus());
-                startActivity(intent);
-            }
-        });
+        clothesArrayList = new ArrayList<>();
+
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getActivity(), "Item clicked " + position,
+//                        Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(getActivity(), WardrobeDetailActivity.class);
+//                intent.putExtra("id_pakaian", clothesArrayList.get(position).getId());
+//                intent.putExtra("id_user", clothesArrayList.get(position).getIdUser());
+//                intent.putExtra("id_request", clothesArrayList.get(position).getIdRequest());
+//                intent.putExtra("jenis_ukuran", clothesArrayList.get(position).getSize());
+//                intent.putExtra("jenis_gender", clothesArrayList.get(position).getGender());
+//                intent.putExtra("jenis_usia", clothesArrayList.get(position).getAge());
+//                intent.putExtra("jenis_baju", clothesArrayList.get(position).getCategory());
+//                intent.putExtra("foto", clothesArrayList.get(position).getPicUrl());
+//                intent.putExtra("status", clothesArrayList.get(position).getStatus());
+//                startActivity(intent);
+//            }
+//        });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -127,8 +129,6 @@ public class WardrobeFragment extends Fragment {
                 fetchJSON();
             }
         });
-
-        fetchJSON();
 
         return view;
     }
@@ -145,7 +145,7 @@ public class WardrobeFragment extends Fragment {
         int userId = getActivity().getSharedPreferences("PREFERENCE_STORY",
                 getActivity().MODE_PRIVATE).getInt("userId", 0);
 
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(Url.userPakaian(userId))
                 .get()
                 .build();
@@ -214,8 +214,28 @@ public class WardrobeFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                clothesAdapter = new ClothesAdapter(getActivity(), clothesArrayList);
-                                listView.setAdapter(clothesAdapter);
+                                layoutManager = new LinearLayoutManager(getActivity());
+                                adapter = new ClothesAdapter(clothesArrayList,
+                                        new CustomItemClickListener() {
+                                            @Override
+                                            public void onItemClick(View v, int position) {
+                                                Intent intent = new Intent(getActivity(),
+                                                        WardrobeDetailActivity.class);
+                                                intent.putExtra("foto",
+                                                        clothesArrayList.get(position).getPicUrl());
+                                                intent.putExtra("jenis_baju",
+                                                        clothesArrayList.get(position).getCategory());
+                                                intent.putExtra("jenis_usia",
+                                                        clothesArrayList.get(position).getAge());
+                                                intent.putExtra("jenis_ukuran",
+                                                        clothesArrayList.get(position).getSize());
+                                                intent.putExtra("status",
+                                                        clothesArrayList.get(position).getStatus());
+                                                startActivity(intent);
+                                            }
+                                        });
+                                recyclerView.setLayoutManager(layoutManager);
+                                recyclerView.setAdapter(adapter);
                                 swipeRefreshLayout.setRefreshing(false);
                                 refreshText.setVisibility(View.GONE);
                             }
