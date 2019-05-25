@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.ppl2jt.sawadikap_java.R;
 import com.ppl2jt.sawadikap_java.WardrobeDetailActivity;
 import com.ppl2jt.sawadikap_java.constant.Url;
@@ -42,6 +43,7 @@ import okhttp3.Response;
 public class WardrobeFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ShimmerFrameLayout shimmerFrameLayout;
     private static ProgressDialog mProgressDialog;
     private ArrayList<Clothes> clothesArrayList;
     private RecyclerView recyclerView;
@@ -99,6 +101,7 @@ public class WardrobeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wardrobe, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.swipeLayout);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         recyclerView = view.findViewById(R.id.recyclerView);
         refreshText = view.findViewById(R.id.refreshText);
 
@@ -142,6 +145,8 @@ public class WardrobeFragment extends Fragment {
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
                         swipeRefreshLayout.setRefreshing(false);
                         refreshText.setVisibility(View.VISIBLE);
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        swipeRefreshLayout.setVisibility(View.VISIBLE);
                     }
                 });
 //                removeSimpleProgressDialog();
@@ -218,6 +223,8 @@ public class WardrobeFragment extends Fragment {
                                 recyclerView.setLayoutManager(layoutManager);
                                 recyclerView.setAdapter(adapter);
                                 swipeRefreshLayout.setRefreshing(false);
+                                shimmerFrameLayout.setVisibility(View.GONE);
+                                swipeRefreshLayout.setVisibility(View.VISIBLE);
                                 refreshText.setVisibility(View.GONE);
                             }
                         });

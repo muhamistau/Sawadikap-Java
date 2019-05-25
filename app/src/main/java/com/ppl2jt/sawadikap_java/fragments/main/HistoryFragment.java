@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.ppl2jt.sawadikap_java.R;
 import com.ppl2jt.sawadikap_java.constant.Url;
@@ -43,6 +44,7 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 public class HistoryFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ShimmerFrameLayout shimmerFrameLayout;
     private ArrayList<Requests> requestsArrayList;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -69,6 +71,7 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
         swipeRefreshLayout = view.findViewById(R.id.swipeLayout);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
         recyclerView = view.findViewById(R.id.recyclerView);
         View bottomSheet = view.findViewById(R.id.bottomSheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -116,6 +119,8 @@ public class HistoryFragment extends Fragment {
                     public void run() {
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
                         swipeRefreshLayout.setRefreshing(false);
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        swipeRefreshLayout.setVisibility(View.VISIBLE);
                         refreshText.setVisibility(View.VISIBLE);
                     }
                 });
@@ -224,6 +229,8 @@ public class HistoryFragment extends Fragment {
                                 recyclerView.setLayoutManager(layoutManager);
                                 recyclerView.setAdapter(adapter);
                                 swipeRefreshLayout.setRefreshing(false);
+                                shimmerFrameLayout.setVisibility(View.GONE);
+                                swipeRefreshLayout.setVisibility(View.VISIBLE);
                                 refreshText.setVisibility(View.GONE);
                             }
                         });
@@ -240,5 +247,4 @@ public class HistoryFragment extends Fragment {
         super.onResume();
         fetchJSON();
     }
-
 }

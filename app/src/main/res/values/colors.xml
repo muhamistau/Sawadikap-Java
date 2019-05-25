@@ -10,4 +10,5 @@
     <color name="unselected">#888888</color>
     <color name="materialRed">#B71C1C</color>
     <color name="materialYellow">#F9A825</color>
+    <color name="placeholderBackground">#dddddd</color>
 </resources>
