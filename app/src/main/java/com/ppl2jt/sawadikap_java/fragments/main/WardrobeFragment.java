@@ -104,25 +104,6 @@ public class WardrobeFragment extends Fragment {
 
         clothesArrayList = new ArrayList<>();
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getActivity(), "Item clicked " + position,
-//                        Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getActivity(), WardrobeDetailActivity.class);
-//                intent.putExtra("id_pakaian", clothesArrayList.get(position).getId());
-//                intent.putExtra("id_user", clothesArrayList.get(position).getIdUser());
-//                intent.putExtra("id_request", clothesArrayList.get(position).getIdRequest());
-//                intent.putExtra("jenis_ukuran", clothesArrayList.get(position).getSize());
-//                intent.putExtra("jenis_gender", clothesArrayList.get(position).getGender());
-//                intent.putExtra("jenis_usia", clothesArrayList.get(position).getAge());
-//                intent.putExtra("jenis_baju", clothesArrayList.get(position).getCategory());
-//                intent.putExtra("foto", clothesArrayList.get(position).getPicUrl());
-//                intent.putExtra("status", clothesArrayList.get(position).getStatus());
-//                startActivity(intent);
-//            }
-//        });
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
