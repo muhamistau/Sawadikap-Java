@@ -1,6 +1,5 @@
 package com.ppl2jt.sawadikap_java.job;
 
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,7 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ClothesAdapter.ViewHolder holder, int position) {
-        Resources res = holder.itemView.getContext().getResources();
+//        Resources res = holder.itemView.getContext().getResources();
 
         Glide.with(holder.itemView.getContext()).load(clothesArrayList.get(position).getPicUrl())
                 .into(holder.clothesImage);

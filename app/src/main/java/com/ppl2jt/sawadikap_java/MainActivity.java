@@ -316,4 +316,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         closeFab();
     }
+
+    public void outsideClick(View view) {
+        closeFab();
+    }
 }
